@@ -1,0 +1,77 @@
+body {
+  background-color: #14bdac;
+  margin: 0;
+  font-size: 24px;
+}
+.cell {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: #14bdac;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  background-color: #298077;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 310px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  grid-gap: 5px;
+}
+.icon {
+  color: #298077;
+}
+.play-settings {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+  height: 50px;
+}
+.btn {
+  border: 2px solid #298077;
+  border-radius: 4px;
+  background-color: #14bdac;
+  padding: 5px;
+  color: white;
+  font-size: 1em;
+  width: auto;
+}
+
+.score {
+  color: white;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#player-one {
+  background-color: #fff;
+  color: #298077;
+}
+.result {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  height: 55px;
+}
+.play-again {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 50px;
+  
+}
+.again:hover {
+  background-color: #fff;
+  color: #298077;
+}
+.reset:hover {
+  background-color: #fff;
+  color: #298077;
+}
