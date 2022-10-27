@@ -28,34 +28,43 @@ let playerTwoScore =  document.querySelector('.player-two-score')
 let playerX = ` <i class="icon fa-solid fa-5x fa-xmark"></i> `
 let playerO = ` <i class=" icon fa-regular fa-4x fa-circle"></i> `
 
+let isWin = false
+
+
 cells.forEach(cell=> {
-    cell.addEventListener('click', ()=> {
-      if(sign ==='cross'){
-        playerOne.style.backgroundColor='#14bdac'
-        playerOne.style.color = 'white'
-        playerTwo.style.backgroundColor='white'
-        playerTwo.style.color = '#298077'
-  
-        cell.innerHTML = playerX
-        sign ='circle'
-     } else if (sign ==='circle'){
-        playerTwo.style.backgroundColor='#14bdac'
-        playerTwo.style.color = 'white'
-        playerOne.style.backgroundColor='white'
-        playerOne.style.color = '#298077'
+  function putSign(){
+    if (isWin){
+      cell.innerHTML = ''
+      playerTwo.style.backgroundColor='#14bdac'
+      playerTwo.style.color = 'white'
+      playerOne.style.backgroundColor='#14bdac'
+      playerOne.style.color = 'white'
+    }
+    else if(sign ==='cross'){
+      playerOne.style.backgroundColor='#14bdac'
+      playerOne.style.color = 'white'
+      playerTwo.style.backgroundColor='white'
+      playerTwo.style.color = '#298077'
+
+      cell.innerHTML = playerX
+      sign ='circle'
+   } else if (sign ==='circle'){
+      playerTwo.style.backgroundColor='#14bdac'
+      playerTwo.style.color = 'white'
+      playerOne.style.backgroundColor='white'
+      playerOne.style.color = '#298077'
+ 
+      cell.innerHTML = playerO
    
-        cell.innerHTML = playerO
-     
-       sign = 'cross'
-      }
-      getWinner()
-    })
+     sign = 'cross' 
+    }
+    getWinner()
+  }
+    cell.addEventListener('click', putSign)
 
 })
 
-function gameStop(){
 
-}
 
 function clear(){
   cells.forEach(cell =>{
@@ -76,6 +85,8 @@ function reset(){
 again.addEventListener('click', clear)
 restart.addEventListener('click', reset)
 
+
+
 function getWinner(){
   if((cellOne.innerHTML === playerX && cellTwo.innerHTML === playerX && cellThree.innerHTML === playerX)||
   (cellFour.innerHTML === playerX && cellFive.innerHTML === playerX && cellSix.innerHTML === playerX)||
@@ -85,7 +96,7 @@ function getWinner(){
   (cellThree.innerHTML === playerX && cellSix.innerHTML === playerX && cellNine.innerHTML === playerX)||
   (cellOne.innerHTML === playerX && cellFive.innerHTML === playerX && cellNine.innerHTML === playerX)||
   (cellThree.innerHTML === playerX && cellFive.innerHTML === playerX && cellSeven.innerHTML === playerX)){
-
+isWin= true
   result.innerHTML = `Player 1 WIN `
   counterOne++
 
@@ -99,9 +110,10 @@ function getWinner(){
     (cellOne.innerHTML === playerO && cellFive.innerHTML === playerO && cellNine.innerHTML === playerO)||
     (cellThree.innerHTML === playerO && cellFive.innerHTML === playerO && cellSeven.innerHTML === playerO)
   ){
+    isWin= true
     result.innerHTML = `Player 2 WIN `
     counterTwo++
-  }
+  } 
  
   }
 
