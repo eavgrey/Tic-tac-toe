@@ -60,6 +60,7 @@ cells.forEach(cell=> {
     }
     getWinner()
   }
+
     cell.addEventListener('click', putSign)
 
 })
@@ -69,6 +70,7 @@ cells.forEach(cell=> {
 function clear(){
   cells.forEach(cell =>{
   cell.innerHTML = ''
+  isWin=false
   })
   result.innerHTML = ''
     playerOneScore.innerHTML = counterOne
@@ -113,7 +115,15 @@ isWin= true
     isWin= true
     result.innerHTML = `Player 2 WIN `
     counterTwo++
-  } 
- 
+  } else if (((cellOne.innerHTML  == playerX || cellOne.innerHTML == playerO) && (cellTwo.innerHTML == playerX
+  || cellTwo.innerHTML == playerO) && (cellThree.innerHTML == playerX || cellThree.innerHTML  == playerO) &&
+  (cellFour.innerHTML == playerX || cellFour.innerHTML  == playerO) && (cellFive.innerHTML == playerX ||
+    cellFive.innerHTML== playerO) && (cellSix.innerHTML == playerX || cellSix.innerHTML== playerO) &&
+  (cellSeven.innerHTML == playerX || cellSeven.innerHTML == playerO) && (cellEight.innerHTML == playerX ||
+    cellEight.innerHTML == playerO) && (cellNine.innerHTML == playerX || cellNine.innerHTML== playerO))){
+
+      result.innerHTML = `Tie `
   }
+
+}
 
