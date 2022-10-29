@@ -14,7 +14,7 @@ const playerTwoScore = document.getElementById("player-two-score");
 const iconX = '<i class="icon fa-solid fa-5x fa-xmark"></i>';
 const iconO = '<i class="icon fa-regular fa-4x fa-circle"></i>';
 
-let currentSign = "cross";
+let currentSign = 'cross'
 let counterOne = 0;
 let counterTwo = 0;
 let isWin = false;
@@ -41,7 +41,10 @@ function updateBoard() {
   })
 }
 
-function putSign(index) {
+function putSign(sign, index) {
+  if (sign !== currentSign) {
+    return;
+  }
   if (board[index]) {
     return;
   }
@@ -49,17 +52,15 @@ function putSign(index) {
     return;
   } 
   
-  board[index] = currentSign
-  if (currentSign === "cross") {
+  board[index] = sign
+  if (sign === "cross") {
+    currentSign = 'circle'
     playerOne.classList.remove("active");
     playerTwo.classList.add("active");
-
-    currentSign = "circle";
-  } else if (currentSign === "circle") {
+  } else if (sign === "circle") {
+    currentSign = 'cross'
     playerOne.classList.add("active");
     playerTwo.classList.remove("active");
-
-    currentSign = "cross";
   }
 
   getWinner();
@@ -75,6 +76,10 @@ function playAgain() {
   result.innerHTML = "";
   playerOneScore.innerHTML = counterOne;
   playerTwoScore.innerHTML = counterTwo;
+
+  if (currentSign === 'circle') {
+    computerTurn()
+  }
 }
 
 function reset() {
@@ -114,10 +119,7 @@ function getWinner() {
   }
 }
 
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    putSign(index)
-
+function computerTurn () {
     const computerIndexes = [];
     board.forEach((x, i) => {
       if (x === null) {
@@ -126,6 +128,15 @@ cells.forEach((cell, index) => {
     })
     const computerIndex = computerIndexes[Math.floor(Math.random() * computerIndexes.length)]
 
-    putSign(computerIndex)
+    setTimeout(() => {
+      putSign('circle', computerIndex)
+    }, 1000);
+}
+
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    putSign('cross', index)
+
+    computerTurn()
   });
 });
