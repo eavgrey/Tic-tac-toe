@@ -1,56 +1,72 @@
 "use strict";
 
 const cells = document.querySelectorAll(".cell");
-const playerOne = document.getElementById("player-one");
+const iconOne = document.getElementById("player-one");
 const playerTwo = document.getElementById("player-two");
 const result = document.getElementById("result");
-
-const cellOne = document.getElementById("cell-one");
-const cellTwo = document.getElementById("cell-two");
-const cellThree = document.getElementById("cell-three");
-const cellFour = document.getElementById("cell-four");
-const cellFive = document.getElementById("cell-five");
-const cellSix = document.getElementById("cell-six");
-const cellSeven = document.getElementById("cell-seven");
-const cellEight = document.getElementById("cell-eight");
-const cellNine = document.getElementById("cell-nine");
 
 const again = document.getElementById("again");
 const restart = document.getElementById("reset");
 
-const playerOneScore = document.getElementById("player-one-score");
+const iconOneScore = document.getElementById("player-one-score");
 const playerTwoScore = document.getElementById("player-two-score");
 
-const playerX = ` <i class="icon fa-solid fa-5x fa-xmark"></i> `;
-const playerO = ` <i class=" icon fa-regular fa-4x fa-circle"></i> `;
+const iconX = '<i class="icon fa-solid fa-5x fa-xmark"></i>';
+const iconO = '<i class=" icon fa-regular fa-4x fa-circle"></i>';
 
 let sign = "cross";
 let counterOne = 0;
 let counterTwo = 0;
 let isWin = false;
 
-function putSign(event) {
-  const cell = event.currentTarget;
+const board = [
+  null, null, null, 
+  null, null, null, 
+  null, null, null
+]
 
-  if (cell.innerHTML !== "") {
+function updateBoard() {
+  cells.forEach((cell, index) => {
+    switch (board[index]) {
+      case 'cross':
+        cell.innerHTML = iconX
+        break;
+      case 'circle':
+        cell.innerHTML = iconO
+        break;
+      default:
+        cell.innerHTML = ''
+        break;
+    }
+  })
+}
+
+function putSign(event) {
+  const index = +event.currentTarget.dataset.index;
+
+  if (board[index]) {
     return;
   }
   if (isWin) {
     return;
-  } else if (sign === "cross") {
-    playerOne.classList.remove("active");
+  } 
+  
+  board[index] = sign
+  if (sign === "cross") {
+    iconOne.classList.remove("active");
     playerTwo.classList.add("active");
 
-    cell.innerHTML = playerX;
     sign = "circle";
   } else if (sign === "circle") {
-    playerOne.classList.add("active");
+    iconOne.classList.add("active");
     playerTwo.classList.remove("active");
 
-    cell.innerHTML = playerO;
     sign = "cross";
   }
+
   getWinner();
+
+  updateBoard()
 }
 
 cells.forEach((cell) => {
@@ -58,19 +74,19 @@ cells.forEach((cell) => {
 });
 
 function playAgain() {
-  cells.forEach((cell) => {
-    cell.innerHTML = "";
-  });
+  board.fill(null);
+  updateBoard();
+
   isWin = false;
   result.innerHTML = "";
-  playerOneScore.innerHTML = counterOne;
+  iconOneScore.innerHTML = counterOne;
   playerTwoScore.innerHTML = counterTwo;
 }
 
 function reset() {
   counterOne = 0;
   counterTwo = 0;
-  playerOneScore.innerHTML = 0;
+  iconOneScore.innerHTML = 0;
   playerTwoScore.innerHTML = 0;
 }
 
@@ -79,74 +95,32 @@ restart.addEventListener("click", reset);
 
 function getWinner() {
   if (
-    (cellOne.innerHTML === playerX &&
-      cellTwo.innerHTML === playerX &&
-      cellThree.innerHTML === playerX) ||
-    (cellFour.innerHTML === playerX &&
-      cellFive.innerHTML === playerX &&
-      cellSix.innerHTML === playerX) ||
-    (cellSeven.innerHTML === playerX &&
-      cellEight.innerHTML === playerX &&
-      cellNine.innerHTML === playerX) ||
-    (cellOne.innerHTML === playerX &&
-      cellFour.innerHTML === playerX &&
-      cellSeven.innerHTML === playerX) ||
-    (cellTwo.innerHTML === playerX &&
-      cellFive.innerHTML === playerX &&
-      cellEight.innerHTML === playerX) ||
-    (cellThree.innerHTML === playerX &&
-      cellSix.innerHTML === playerX &&
-      cellNine.innerHTML === playerX) ||
-    (cellOne.innerHTML === playerX &&
-      cellFive.innerHTML === playerX &&
-      cellNine.innerHTML === playerX) ||
-    (cellThree.innerHTML === playerX &&
-      cellFive.innerHTML === playerX &&
-      cellSeven.innerHTML === playerX)
+    (board[0] === 'cross' && board[0] === board[1] && board[1] === board[2]) ||
+    (board[3] === 'cross' && board[3] === board[4] && board[4] === board[5]) ||
+    (board[6] === 'cross' && board[6] === board[7] && board[7] === board[8]) ||
+    (board[0] === 'cross' && board[0] === board[3] && board[3] === board[6]) ||
+    (board[1] === 'cross' && board[1] === board[4] && board[4] === board[7]) ||
+    (board[2] === 'cross' && board[2] === board[5] && board[5] === board[8]) ||
+    (board[0] === 'cross' && board[0] === board[4] && board[4] === board[8]) ||
+    (board[2] === 'cross' && board[2] === board[4] && board[4] === board[6]) 
   ) {
     isWin = true;
-    result.innerHTML = `Player 1 WIN `;
+    result.innerHTML = 'Player 1 WIN';
     counterOne++;
   } else if (
-    (cellOne.innerHTML === playerO &&
-      cellTwo.innerHTML === playerO &&
-      cellThree.innerHTML === playerO) ||
-    (cellFour.innerHTML === playerO &&
-      cellFive.innerHTML === playerO &&
-      cellSix.innerHTML === playerO) ||
-    (cellSeven.innerHTML === playerO &&
-      cellEight.innerHTML === playerO &&
-      cellNine.innerHTML === playerO) ||
-    (cellOne.innerHTML === playerO &&
-      cellFour.innerHTML === playerO &&
-      cellSeven.innerHTML === playerO) ||
-    (cellTwo.innerHTML === playerO &&
-      cellFive.innerHTML === playerO &&
-      cellEight.innerHTML === playerO) ||
-    (cellThree.innerHTML === playerO &&
-      cellSix.innerHTML === playerO &&
-      cellNine.innerHTML === playerO) ||
-    (cellOne.innerHTML === playerO &&
-      cellFive.innerHTML === playerO &&
-      cellNine.innerHTML === playerO) ||
-    (cellThree.innerHTML === playerO &&
-      cellFive.innerHTML === playerO &&
-      cellSeven.innerHTML === playerO)
+    (board[0] === 'circle' && board[0] === board[1] && board[1] === board[2]) ||
+    (board[3] === 'circle' && board[3] === board[4] && board[4] === board[5]) ||
+    (board[6] === 'circle' && board[6] === board[7] && board[7] === board[8]) ||
+    (board[0] === 'circle' && board[0] === board[3] && board[3] === board[6]) ||
+    (board[1] === 'circle' && board[1] === board[4] && board[4] === board[7]) ||
+    (board[2] === 'circle' && board[2] === board[5] && board[5] === board[8]) ||
+    (board[0] === 'circle' && board[0] === board[4] && board[4] === board[8]) ||
+    (board[2] === 'circle' && board[2] === board[4] && board[4] === board[6]) 
   ) {
     isWin = true;
-    result.innerHTML = `Player 2 WIN `;
+    result.innerHTML = 'Player 2 WIN';
     counterTwo++;
-  } else if (
-    (cellOne.innerHTML == playerX || cellOne.innerHTML == playerO) &&
-    (cellTwo.innerHTML == playerX || cellTwo.innerHTML == playerO) &&
-    (cellThree.innerHTML == playerX || cellThree.innerHTML == playerO) &&
-    (cellFour.innerHTML == playerX || cellFour.innerHTML == playerO) &&
-    (cellFive.innerHTML == playerX || cellFive.innerHTML == playerO) &&
-    (cellSix.innerHTML == playerX || cellSix.innerHTML == playerO) &&
-    (cellSeven.innerHTML == playerX || cellSeven.innerHTML == playerO) &&
-    (cellEight.innerHTML == playerX || cellEight.innerHTML == playerO) &&
-    (cellNine.innerHTML == playerX || cellNine.innerHTML == playerO)
-  ) {
-    result.innerHTML = `Tie `;
+  } else if (board.every(x => x !== null)) {
+    result.innerHTML = 'Tie';
   }
 }
