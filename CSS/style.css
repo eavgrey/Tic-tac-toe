@@ -49,7 +49,7 @@ body {
   gap: 5px;
 }
 
-#player-one {
+.player-one {
   background-color: #fff;
   color: #298077;
 }

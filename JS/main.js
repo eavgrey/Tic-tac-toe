@@ -4,26 +4,28 @@ let cells = document.querySelectorAll ('.cell')
 let playerOne = document.getElementById('player-one')
 let playerTwo = document.getElementById('player-two')
 let sign = 'cross'
-let result = document.querySelector('.result')
+let result = document.getElementById('result')
 
-let cellOne = document.querySelector('.cell-one')
-let cellTwo = document.querySelector('.cell-two')
-let cellThree = document.querySelector('.cell-three')
-let cellFour = document.querySelector('.cell-four')
-let cellFive= document.querySelector('.cell-five')
-let cellSix = document.querySelector('.cell-six')
-let cellSeven = document.querySelector('.cell-seven')
-let cellEight = document.querySelector('.cell-eight')
-let cellNine = document.querySelector('.cell-nine')
+let cellOne = document.getElementById('cell-one')
+let cellTwo = document.getElementById('cell-two')
+let cellThree = document.getElementById('cell-three')
+let cellFour = document.getElementById('cell-four')
+let cellFive= document.getElementById('cell-five')
+let cellSix = document.getElementById('cell-six')
+let cellSeven = document.getElementById('cell-seven')
+let cellEight = document.getElementById('cell-eight')
+let cellNine = document.getElementById('cell-nine')
 
-let again = document.querySelector('.again')
-let restart = document.querySelector('.reset')
+let again = document.getElementById('again')
+let restart = document.getElementById('reset')
 
 let counterOne = 0
 let counterTwo = 0
 
-let playerOneScore =  document.querySelector('.player-one-score')
-let playerTwoScore =  document.querySelector('.player-two-score')
+let playerOneScore =  document.getElementById('player-one-score')
+let playerTwoScore =  document.getElementById('player-two-score')
+
+
 
 let playerX = ` <i class="icon fa-solid fa-5x fa-xmark"></i> `
 let playerO = ` <i class=" icon fa-regular fa-4x fa-circle"></i> `
@@ -33,6 +35,9 @@ let isWin = false
 
 cells.forEach(cell=> {
   function putSign(){
+    if(cell.innerHTML!==''){
+      return
+    }
     if (isWin){
       cell.innerHTML = ''
       playerTwo.style.backgroundColor='#14bdac'
@@ -47,7 +52,8 @@ cells.forEach(cell=> {
       playerTwo.style.color = '#298077'
 
       cell.innerHTML = playerX
-      sign ='circle'
+       sign ='circle'
+     
    } else if (sign ==='circle'){
       playerTwo.style.backgroundColor='#14bdac'
       playerTwo.style.color = 'white'
@@ -55,7 +61,6 @@ cells.forEach(cell=> {
       playerOne.style.color = '#298077'
  
       cell.innerHTML = playerO
-   
      sign = 'cross' 
     }
     getWinner()
@@ -64,7 +69,6 @@ cells.forEach(cell=> {
     cell.addEventListener('click', putSign)
 
 })
-
 
 
 function clear(){
@@ -88,7 +92,6 @@ again.addEventListener('click', clear)
 restart.addEventListener('click', reset)
 
 
-
 function getWinner(){
   if((cellOne.innerHTML === playerX && cellTwo.innerHTML === playerX && cellThree.innerHTML === playerX)||
   (cellFour.innerHTML === playerX && cellFive.innerHTML === playerX && cellSix.innerHTML === playerX)||
@@ -101,7 +104,6 @@ function getWinner(){
 isWin= true
   result.innerHTML = `Player 1 WIN `
   counterOne++
-
   } else if (
     (cellOne.innerHTML === playerO && cellTwo.innerHTML === playerO && cellThree.innerHTML === playerO)||
     (cellFour.innerHTML === playerO && cellFive.innerHTML === playerO && cellSix.innerHTML === playerO)||
@@ -123,7 +125,5 @@ isWin= true
     cellEight.innerHTML == playerO) && (cellNine.innerHTML == playerX || cellNine.innerHTML== playerO))){
 
       result.innerHTML = `Tie `
-  }
-
 }
-
+}
