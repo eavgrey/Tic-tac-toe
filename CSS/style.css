@@ -2,6 +2,7 @@ body {
   background-color: #14bdac;
   margin: 0;
   font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .cell {
   display: flex;
@@ -31,6 +32,19 @@ body {
   margin-top: 50px;
   height: 50px;
 }
+.label {
+  border: 2px solid #298077;
+  border-radius: 4px;
+  background-color: #14bdac;
+  color: white;
+  font-size: 1em;
+  width: auto;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .btn {
   border: 2px solid #298077;
   border-radius: 4px;
@@ -39,6 +53,12 @@ body {
   color: white;
   font-size: 1em;
   width: auto;
+  display: flex;
+  align-items: center;
+}
+.btn:hover {
+  background-color: #fff;
+  color: #298077;
 }
 
 .score {
@@ -49,10 +69,11 @@ body {
   gap: 5px;
 }
 
-.player-one {
+.label.active {
   background-color: #fff;
   color: #298077;
 }
+
 .result {
   color: white;
   font-size: 2em;
@@ -65,13 +86,5 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin: 50px;
-  
 }
-.again:hover {
-  background-color: #fff;
-  color: #298077;
-}
-.reset:hover {
-  background-color: #fff;
-  color: #298077;
-}
+
