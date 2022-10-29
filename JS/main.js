@@ -1,20 +1,20 @@
 "use strict";
 
 const cells = document.querySelectorAll(".cell");
-const iconOne = document.getElementById("player-one");
+const playerOne = document.getElementById("player-one");
 const playerTwo = document.getElementById("player-two");
 const result = document.getElementById("result");
 
 const again = document.getElementById("again");
 const restart = document.getElementById("reset");
 
-const iconOneScore = document.getElementById("player-one-score");
+const playerOneScore = document.getElementById("player-one-score");
 const playerTwoScore = document.getElementById("player-two-score");
 
 const iconX = '<i class="icon fa-solid fa-5x fa-xmark"></i>';
-const iconO = '<i class=" icon fa-regular fa-4x fa-circle"></i>';
+const iconO = '<i class="icon fa-regular fa-4x fa-circle"></i>';
 
-let sign = "cross";
+let currentSign = "cross";
 let counterOne = 0;
 let counterTwo = 0;
 let isWin = false;
@@ -51,17 +51,17 @@ function putSign(event) {
     return;
   } 
   
-  board[index] = sign
-  if (sign === "cross") {
-    iconOne.classList.remove("active");
+  board[index] = currentSign
+  if (currentSign === "cross") {
+    playerOne.classList.remove("active");
     playerTwo.classList.add("active");
 
-    sign = "circle";
-  } else if (sign === "circle") {
-    iconOne.classList.add("active");
+    currentSign = "circle";
+  } else if (currentSign === "circle") {
+    playerOne.classList.add("active");
     playerTwo.classList.remove("active");
 
-    sign = "cross";
+    currentSign = "cross";
   }
 
   getWinner();
@@ -79,44 +79,39 @@ function playAgain() {
 
   isWin = false;
   result.innerHTML = "";
-  iconOneScore.innerHTML = counterOne;
+  playerOneScore.innerHTML = counterOne;
   playerTwoScore.innerHTML = counterTwo;
 }
 
 function reset() {
   counterOne = 0;
   counterTwo = 0;
-  iconOneScore.innerHTML = 0;
+  playerOneScore.innerHTML = 0;
   playerTwoScore.innerHTML = 0;
 }
 
 again.addEventListener("click", playAgain);
 restart.addEventListener("click", reset);
 
+function checkSign(sign) {
+    return (
+      (board[0] === sign && board[0] === board[1] && board[1] === board[2]) ||
+      (board[3] === sign && board[3] === board[4] && board[4] === board[5]) ||
+      (board[6] === sign && board[6] === board[7] && board[7] === board[8]) ||
+      (board[0] === sign && board[0] === board[3] && board[3] === board[6]) ||
+      (board[1] === sign && board[1] === board[4] && board[4] === board[7]) ||
+      (board[2] === sign && board[2] === board[5] && board[5] === board[8]) ||
+      (board[0] === sign && board[0] === board[4] && board[4] === board[8]) ||
+      (board[2] === sign && board[2] === board[4] && board[4] === board[6]) 
+    )
+}
+
 function getWinner() {
-  if (
-    (board[0] === 'cross' && board[0] === board[1] && board[1] === board[2]) ||
-    (board[3] === 'cross' && board[3] === board[4] && board[4] === board[5]) ||
-    (board[6] === 'cross' && board[6] === board[7] && board[7] === board[8]) ||
-    (board[0] === 'cross' && board[0] === board[3] && board[3] === board[6]) ||
-    (board[1] === 'cross' && board[1] === board[4] && board[4] === board[7]) ||
-    (board[2] === 'cross' && board[2] === board[5] && board[5] === board[8]) ||
-    (board[0] === 'cross' && board[0] === board[4] && board[4] === board[8]) ||
-    (board[2] === 'cross' && board[2] === board[4] && board[4] === board[6]) 
-  ) {
+  if (checkSign('cross')) {
     isWin = true;
     result.innerHTML = 'Player 1 WIN';
     counterOne++;
-  } else if (
-    (board[0] === 'circle' && board[0] === board[1] && board[1] === board[2]) ||
-    (board[3] === 'circle' && board[3] === board[4] && board[4] === board[5]) ||
-    (board[6] === 'circle' && board[6] === board[7] && board[7] === board[8]) ||
-    (board[0] === 'circle' && board[0] === board[3] && board[3] === board[6]) ||
-    (board[1] === 'circle' && board[1] === board[4] && board[4] === board[7]) ||
-    (board[2] === 'circle' && board[2] === board[5] && board[5] === board[8]) ||
-    (board[0] === 'circle' && board[0] === board[4] && board[4] === board[8]) ||
-    (board[2] === 'circle' && board[2] === board[4] && board[4] === board[6]) 
-  ) {
+  } else if (checkSign('circle')) {
     isWin = true;
     result.innerHTML = 'Player 2 WIN';
     counterTwo++;
