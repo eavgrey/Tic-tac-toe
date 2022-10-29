@@ -41,9 +41,7 @@ function updateBoard() {
   })
 }
 
-function putSign(event) {
-  const index = +event.currentTarget.dataset.index;
-
+function putSign(index) {
   if (board[index]) {
     return;
   }
@@ -68,10 +66,6 @@ function putSign(event) {
 
   updateBoard()
 }
-
-cells.forEach((cell) => {
-  cell.addEventListener("click", putSign);
-});
 
 function playAgain() {
   board.fill(null);
@@ -119,3 +113,19 @@ function getWinner() {
     result.innerHTML = 'Tie';
   }
 }
+
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    putSign(index)
+
+    const computerIndexes = [];
+    board.forEach((x, i) => {
+      if (x === null) {
+        computerIndexes.push(i);
+      }
+    })
+    const computerIndex = computerIndexes[Math.floor(Math.random() * computerIndexes.length)]
+
+    putSign(computerIndex)
+  });
+});
