@@ -138,7 +138,7 @@ function getScore(sign, board ) {
 }
 
 function miniMax(sign, board){
-  let score = getScore(sign, board)
+  let score = getScore('circle', board)
  if((score === 10 ) || (score === -10)){
   return score
  } else {
@@ -185,11 +185,10 @@ function computerTurn () {
     })
     const computerIndex = computerIndexes[Math.floor(Math.random() * computerIndexes.length)]
 
-    setTimeout(() => {
-      putSign('circle', computerIndex)
-    }, 1000);
+    // setTimeout(() => {
+    // }, 1000);
     console.log(miniMax('circle', board))
-
+    putSign('circle', computerIndex)
 }
 
 cells.forEach((cell, index) => {
