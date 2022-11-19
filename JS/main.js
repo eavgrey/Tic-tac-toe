@@ -66,6 +66,7 @@ function putSign(sign, index) {
   getWinner();
 
   updateBoard()
+  console.log(miniMax('cross', board))
 }
 
 function playAgain() {
@@ -92,7 +93,7 @@ function reset() {
 again.addEventListener("click", playAgain);
 restart.addEventListener("click", reset);
 
-function checkSign(sign) {
+function checkSign(sign, board) {
     return (
       (board[0] === sign && board[0] === board[1] && board[1] === board[2]) ||
       (board[3] === sign && board[3] === board[4] && board[4] === board[5]) ||
@@ -106,17 +107,59 @@ function checkSign(sign) {
 }
 
 function getWinner() {
-  if (checkSign('cross')) {
+  if (checkSign('cross', board)) {
     isWin = true;
     result.innerHTML = 'Player 1 WIN';
     counterOne++;
-  } else if (checkSign('circle')) {
+  } else if (checkSign('circle', board)) {
     isWin = true;
     result.innerHTML = 'Player 2 WIN';
     counterTwo++;
   } else if (board.every(x => x !== null)) {
     result.innerHTML = 'Tie';
   }
+}
+
+function getScore(sign, board ) {
+  if (checkSign('cross', board)) {
+    
+    if (sign === 'cross') {
+      return 10
+    }
+    return -10
+  }
+
+  if (checkSign('circle', board)) {
+    if (sign === 'circle') {
+      return 10
+    }
+    return -10
+  }
+
+  return 0
+}
+
+function miniMax(sign, board){
+  let score = getScore(sign, board)
+ if((score === 10 ) || (score === -10)){
+  return score
+ } else {
+  const newBoards = []
+  const freeIndexes = [];
+    board.forEach((x, i) => {
+      if (x === null) {
+        freeIndexes.push(i);
+      }
+    })
+   
+    freeIndexes.forEach((index)=>{
+      let newBoard = [].concat(board)
+       newBoard[index] = sign
+      newBoards.push(newBoard)
+          })
+          console.log(newBoards)
+ }
+ 
 }
 
 function computerTurn () {

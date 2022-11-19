@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-size: 24px;
   font-family: Arial, Helvetica, sans-serif;
+  color: white;
 }
 .cell {
   display: flex;
@@ -26,12 +27,32 @@ body {
 .icon {
   color: #298077;
 }
-.play-settings {
+.play-settings-box {
   display: flex;
   justify-content: space-evenly;
   margin-top: 50px;
   height: 50px;
 }
+.settings {
+  gap: 5px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.settings > i:hover {
+  color: #092e2a;
+}
+.settings > button:focus {
+  background-color: #fff;
+  color: #298077;
+}
+
+.input {
+  position: absolute;
+  left: -100vw;}
+
 .label {
   border: 2px solid #298077;
   border-radius: 4px;
@@ -87,4 +108,3 @@ body {
   justify-content: space-evenly;
   margin: 50px;
 }
-

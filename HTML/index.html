@@ -8,15 +8,24 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
+    <div class="settings">
+   <input type="checkbox" class="input" id="bote-mod">
+  <label for="bote-mod" class="label" id="label">Play with Robot</label>  
+  </div>
+
     <div class="play-settings">
-      <div id="player-one" class="label active">
-        Player 1 <i class="icon fa-solid fa-1x fa-xmark"></i>
-      </div>
-      <div class="score">
-        <p id="player-one-score">0</p>:<p id="player-two-score">0</p>
-      </div>
-      <div id="player-two" class="label">
-        Player 2 <i class="icon fa-regular fa-1x fa-circle"></i>
+      <div class="play-settings-box">
+        <div id="player-one" class="label active">
+          Player 1 <i class="icon fa-solid fa-1x fa-xmark"></i>
+        </div>
+        <div class="score">
+          <p id="player-one-score">0</p>
+          :
+          <p id="player-two-score">0</p>
+        </div>
+        <div id="player-two" class="label">
+          Player 2 <i class="icon fa-regular fa-1x fa-circle"></i>
+        </div>
       </div>
     </div>
     <div class="result" id="result"></div>
@@ -35,10 +44,10 @@
       <button class="btn" id="again">Play Again</button>
       <button class="btn" id="reset">Restart Game</button>
     </div>
-  <script src="/JS/main.js"></script>
-  <script
-    src="https://kit.fontawesome.com/5d2ab4825d.js"
-    crossorigin="anonymous"
-  ></script>
+    <script src="/JS/main.js"></script>
+    <script
+      src="https://kit.fontawesome.com/5d2ab4825d.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
