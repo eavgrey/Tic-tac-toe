@@ -66,7 +66,6 @@ function putSign(sign, index) {
   getWinner();
 
   updateBoard()
-  console.log(miniMax('cross', board))
 }
 
 function playAgain() {
@@ -122,8 +121,7 @@ function getWinner() {
 
 function getScore(sign, board ) {
   if (checkSign('cross', board)) {
-    
-    if (sign === 'cross') {
+        if (sign === 'cross') {
       return 10
     }
     return -10
@@ -146,20 +144,36 @@ function miniMax(sign, board){
  } else {
   const newBoards = []
   const freeIndexes = [];
-    board.forEach((x, i) => {
-      if (x === null) {
-        freeIndexes.push(i);
-      }
-    })
+  board.forEach((x, i) => {
+    if (x === null) {
+      freeIndexes.push(i);
+    }
+  })
+  if (freeIndexes.length === 0){
+    return 0
+  }
    
-    freeIndexes.forEach((index)=>{
-      let newBoard = [].concat(board)
-       newBoard[index] = sign
-      newBoards.push(newBoard)
-          })
-          console.log(newBoards)
+  freeIndexes.forEach((index)=>{
+    let newBoard = [].concat(board)
+    newBoard[index] = sign
+    newBoards.push(newBoard)
+  })
+  //console.log(newBoards)
+  const scores = []
+  newBoards.forEach((newBoard)=>{
+   let miniMaxScore = miniMax(sign==='circle'?'cross':'circle', newBoard)
+   scores.push(miniMaxScore)
+  })
+
+  console.log(scores)
+  if (sign === 'circle'){
+    return Math.max(...scores)
+  } else {
+    return Math.min(...scores)
+  }
  }
- 
+
+
 }
 
 function computerTurn () {
@@ -174,6 +188,8 @@ function computerTurn () {
     setTimeout(() => {
       putSign('circle', computerIndex)
     }, 1000);
+    console.log(miniMax('circle', board))
+
 }
 
 cells.forEach((cell, index) => {
